@@ -14,7 +14,12 @@
             flex-direction: column;
         }
 
-        .btn{
+        .xButtonContainer {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn {
             text-align: center;
             padding: .6em .8em .8em;
             border: none;
@@ -22,28 +27,27 @@
             margin: 5px;
             border-radius: 5px;
             cursor: pointer;
-            box-shadow: inset 0 -.2em rgba(0,0,0,.2);
+            box-shadow: inset 0 -.2em rgba(0, 0, 0, .2);
             outline: 0;
             transition: .2s;
             will-change: transform;
             background: lightgray;
         }
 
-.btn.primary{
+        .btn.primary {
 
             background: #7dc800;
-}
+        }
 
-.btn.warning{
-    background: #ff463b;
-}
+        .btn.warning {
+            background: #ff463b;
+        }
 
-.btn:active{
-    transform: scale(.9);
-}
+        .btn:active {
+            transform: scale(.9);
+        }
 
-
-        .overlay{
+        .overlay {
             background: rgba(0, 0, 0, .5);
             position: fixed;
             left: 0;
@@ -58,25 +62,20 @@
             transition: 1.1s ease-in;
         }
 
-.overlay.active{
-    opacity: 1;
-    visibility: visible;
-}
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
 
         .modal {
-            /* width: 200px;
-            height: 200px; */
             width: 500px;
             background: white;
-            /* animation: name time estado; */
-            /* animation: animationIn .8s alternate infinite; */
             animation: modalIn .8s forwards;
             padding: 2em;
             border-radius: .5em;
             text-align: center;
         }
 
-        /* @keyframes animationIn { */
         @keyframes modalIn {
 
             0% {
@@ -96,7 +95,6 @@
             }
         }
 
-        /* @keyframes animationOut { */
         @keyframes modalOut {
 
             0% {
@@ -119,32 +117,57 @@
 </head>
 
 <body>
-    <img src="platzi.png" alt="platzi">
+    <img id="platziPage" src="platzi.png" alt="platzi">
     <div class="overlay active" id="overlay">
         <div class="modal" id="modal">
-            <h1>    Atención</h1>
+            <div id="xButton" class="xButtonContainer">
+                <button class="btn">X</button>
+            </div>
+            <h1> Atención</h1>
             <p>Estás a punto de crear una
                 ventana de modal muy buena.
             </p>
             <p>¿Te gustó?</p>
             <div class="modal-buttons">
-                <button id= "hide-modal" class="btn primary">Si, está chido.</button>
-                <button class="btn warning">No, nada.</button>
+                <button id="yesButton" class="btn primary">Si, está chido.</button>
+                <button id="noButton" class="btn warning">No, nada.</button>
             </div>
         </div>
     </div>
 </body>
 
 <script>
-    const $hideButton = document.getElementById('hide-modal');
+    const $yesButton = document.getElementById('yesButton');
+    const $noButton = document.getElementById('noButton');
     const $modal = document.getElementById('modal');
     const $overlay = document.getElementById('overlay');
+    const $platziPage = document.getElementById('platziPage');
+    const $xButton = document.getElementById('xButton');
+    
+    addCloseEvents()
+    addOpenEvents()
 
-    $hideButton.addEventListener('click', (event)=>{
-        console.log(event);
+    function addCloseEvents() {
+        $yesButton.addEventListener('click', hideModal);
+        $noButton.addEventListener('click', hideModal);
+        $xButton.addEventListener('click', hideModal);
+        $overlay.addEventListener('click', hideModal);
+    }
+
+    function addOpenEvents(){
+        // debugger
+        $platziPage.addEventListener('click', showModal);
+    }
+
+    function showModal(){
+        $modal.style.animation = 'modalIn .8s forwards';
+        $overlay.classList.add('active');
+    }
+
+    function hideModal() {
         $modal.style.animation = 'modalOut .8s forwards';
         $overlay.classList.remove('active');
-    });
+    }
 
 </script>
 
