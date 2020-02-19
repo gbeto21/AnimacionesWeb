@@ -1,5 +1,6 @@
 # Animaciones Web
 Curso de animaciones para la web.
+
 Web Animations from [Platzi course](https://platzi.com/clases/animaciones-web/).
 
 ---
